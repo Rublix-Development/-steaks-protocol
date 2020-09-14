@@ -10,7 +10,7 @@ contract('SteakToken', ([alice, bob, carol]) => {
         const name = await this.steak.name();
         const symbol = await this.steak.symbol();
         const decimals = await this.steak.decimals();
-        assert.equal(name.valueOf(), 'SteakToken');
+        assert.equal(name.valueOf(), 'Steaks.finance');
         assert.equal(symbol.valueOf(), 'STEAK');
         assert.equal(decimals.valueOf(), '18');
     });
