@@ -50,7 +50,7 @@ Install [Metamask](https://metamask.io/download.html).
 ## Deployment
 First we need to import the Deployer account (will be prompted to enter private key):
 ```
-pipenv run brownie accounts new mainnet_creator
+pipenv run brownie accounts new deployer
 ```
 
 If not already, set `WEB3_INFURA_PROJECT_ID` in `.env`.

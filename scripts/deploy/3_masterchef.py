@@ -12,7 +12,10 @@ def main():
     assert c.STEAK_MAKER == "", 'SteakMaker is already deployed'
     assert c.MASTER_CHEF == "", 'MasterChef is already deployed'
     assert c.MIGRATOR == "", 'Migrator is already deployed'
+
     deployer_acc = accounts.load(c.DEPLOYER)
+
+    factory = UniswapV2Factory.at(c.V2_FACTORY)
 
     steak = SteakToken.at(c.STEAK_TOKEN)
     steak_bar = SteakBar.deploy(steak.address, {"from": deployer_acc})
@@ -22,6 +25,10 @@ def main():
         steak_bar.address,
         c.WETH,
         {"from": deployer_acc})
+
+    # make SteakMaker earn trading fees
+    factory.setFeeTo(steak_maker.address, {"from": deployer_acc})
+    assert factory.feeTo() == steak_maker.address, 'Maker has receive fees'
 
     # developer fund fee recipient
     devaddr = deployer_acc.address
@@ -47,6 +54,10 @@ def main():
     # link the migrator contract
     master_chef.setMigrator(migrator.address)
     assert master_chef.migrator() == migrator.address, 'Invalid migrator'
+
+    factory.setMigrator(migrator.address)
+    assert factory.migrator() == migrator.address, 'Invalid migrator'
+
 
     print('Set in config.py:')
     print(f'    STEAK_BAR = "{steak_bar.address}"')
