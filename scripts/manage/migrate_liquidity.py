@@ -1,5 +1,6 @@
 from brownie import *
 from config import *
+import time
 
 c = MainnetConfig()
 
@@ -23,12 +24,14 @@ def initialize_pools():
     assert chef.poolLength() == 0, 'Pools already initialized'
     for lp_addr, alloc_point in list(uniswap_pools.values()):
         chef.add(alloc_point, lp_addr, False, {"from": deployer_acc})
+    time.sleep(30)
     chef.massUpdatePools({"from": deployer_acc})
 
 def add_pool(lp_addr: str, alloc_point: int):
     """Manually add a pool (ie. Uniswap ETH-STEAKS)"""
     assert not any([x.lpToken() == lp_addr for x in chef.poolInfo()]), 'Already exists'
     chef.add(alloc_point, lp_addr, False, {"from": deployer_acc})
+    time.sleep(30)
     chef.massUpdatePools({"from": deployer_acc})
 
 def migrate_pools():
@@ -51,4 +54,4 @@ def disable_migrator():
     assert chef.migrator() == c.NULL_ADDRESS, 'Invalid migrator'
 
 def main():
-    pass
+    initialize_pools()
