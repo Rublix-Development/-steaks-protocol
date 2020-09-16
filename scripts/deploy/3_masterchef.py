@@ -15,9 +15,23 @@ def main():
 
     deployer_acc = accounts.load(c.DEPLOYER)
 
-    factory = UniswapV2Factory.at(c.V2_FACTORY)
+    # developer fund fee recipient
+    devaddr = deployer_acc.address
 
+    # block times
+    # https://etherscan.io/chart/blocktime
+    blocks_per_hour = 3600/13.05
+    current_block = web3.eth.blockNumber
+    # start farming in 1 hour
+    start_block = current_block + (1 * blocks_per_hour)
+    steak_per_block = 1000
+    bonus_end_block = start_block + (24 * blocks_per_hour)
+    migration_start_block = bonus_end_block + 1
+
+    # init dependencies
+    factory = UniswapV2Factory.at(c.V2_FACTORY)
     steak = SteakToken.at(c.STEAK_TOKEN)
+
     steak_bar = SteakBar.deploy(steak.address, {"from": deployer_acc})
     steak_maker = SteakMaker.deploy(
         c.V2_FACTORY,
@@ -30,11 +44,6 @@ def main():
     factory.setFeeTo(steak_maker.address, {"from": deployer_acc})
     assert factory.feeTo() == steak_maker.address, 'Maker has receive fees'
 
-    # developer fund fee recipient
-    devaddr = deployer_acc.address
-    start_block = 0
-    steak_per_block = 0
-    bonus_end_block = 0
     master_chef = MasterChef.deploy(
         steak.address,
         devaddr,
@@ -42,8 +51,6 @@ def main():
         start_block,
         bonus_end_block,
         {"from": deployer_acc})
-
-    migration_start_block = 0
     migrator = Migrator.deploy(
         master_chef.address,
         c.UNISWAP_FACTORY,
@@ -52,12 +59,10 @@ def main():
         {"from": deployer_acc})
 
     # link the migrator contract
-    master_chef.setMigrator(migrator.address)
-    assert master_chef.migrator() == migrator.address, 'Invalid migrator'
-
     factory.setMigrator(migrator.address)
     assert factory.migrator() == migrator.address, 'Invalid migrator'
-
+    master_chef.setMigrator(migrator.address)
+    assert master_chef.migrator() == migrator.address, 'Invalid migrator'
 
     print('Set in config.py:')
     print(f'    STEAK_BAR = "{steak_bar.address}"')
