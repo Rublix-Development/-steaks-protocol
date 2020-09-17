@@ -190,8 +190,6 @@ contract MasterChef is Ownable {
             pool.lastRewardBlock = block.number;
             return;
         }
-        // if allocPoint == 0, reset the pool's block number
-        // TODO: check if mint(amount=0) works. not needed in that case.
         uint256 multiplier = getMultiplier(pool.lastRewardBlock, block.number);
         uint256 steakReward = multiplier.mul(steakPerBlock).mul(pool.allocPoint).div(totalAllocPoint);
         steak.mint(devaddr, steakReward.div(10));
