@@ -4,6 +4,7 @@ from config import *
 c = MainnetConfig()
 
 def main():
+    assert c.DEV_ADDRESS, 'Developer fund not set'
     assert c.WETH, 'WETH Contract not set'
     assert c.STEAK_TOKEN, 'STEAK Token not set'
     assert c.V2_FACTORY, 'Factory not set'
@@ -14,9 +15,6 @@ def main():
     assert c.MIGRATOR == "", 'Migrator is already deployed'
 
     deployer_acc = accounts.load(c.DEPLOYER)
-
-    # developer fund fee recipient
-    devaddr = deployer_acc.address
 
     # block times
     # https://etherscan.io/chart/blocktime
@@ -33,6 +31,7 @@ def main():
     steak = SteakToken.at(c.STEAK_TOKEN)
 
     steak_bar = SteakBar.deploy(steak.address, {"from": deployer_acc})
+
     steak_maker = SteakMaker.deploy(
         c.V2_FACTORY,
         steak.address,
@@ -46,11 +45,12 @@ def main():
 
     master_chef = MasterChef.deploy(
         steak.address,
-        devaddr,
+        c.DEV_ADDRESS,
         steak_per_block,
         start_block,
         bonus_end_block,
-        {"from": deployer_acc})
+        {"from": deployer_acc })
+
     migrator = Migrator.deploy(
         master_chef.address,
         c.UNISWAP_FACTORY,

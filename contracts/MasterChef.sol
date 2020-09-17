@@ -192,7 +192,7 @@ contract MasterChef is Ownable {
         }
         uint256 multiplier = getMultiplier(pool.lastRewardBlock, block.number);
         uint256 steakReward = multiplier.mul(steakPerBlock).mul(pool.allocPoint).div(totalAllocPoint);
-        steak.mint(devaddr, steakReward.div(10));
+        steak.mint(devaddr, steakReward.mul(81).div(1000)); // ~7.5% of total supply
         steak.mint(address(this), steakReward);
         pool.accSteakPerShare = pool.accSteakPerShare.add(steakReward.mul(1e12).div(lpSupply));
         pool.lastRewardBlock = block.number;

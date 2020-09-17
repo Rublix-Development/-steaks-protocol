@@ -24,9 +24,9 @@ contract('Governor', ([alice, minter, dev]) => {
         await this.chef.deposit(0, '100', { from: minter });
         // Perform another deposit to make sure some STEAK are minted in that 1 block.
         await this.chef.deposit(0, '100', { from: minter });
-        assert.equal((await this.steak.totalSupply()).valueOf(), '110');
         assert.equal((await this.steak.balanceOf(minter)).valueOf(), '100');
-        assert.equal((await this.steak.balanceOf(dev)).valueOf(), '10');
+        assert.equal((await this.steak.balanceOf(dev)).valueOf(), '8');
+        assert.equal((await this.steak.totalSupply()).valueOf(), '108');
         // Transfer ownership to timelock contract
         this.timelock = await Timelock.new(alice, time.duration.days(2), { from: alice });
         this.gov = await GovernorAlpha.new(this.timelock.address, this.steak.address, alice, { from: alice });

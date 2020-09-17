@@ -74,8 +74,8 @@ contract('MasterChef', ([alice, bob, carol, dev, minter]) => {
             await time.advanceBlockTo('104');
             await this.chef.deposit(0, '0', { from: bob }); // block 105
             assert.equal((await this.steak.balanceOf(bob)).valueOf(), '5000');
-            assert.equal((await this.steak.balanceOf(dev)).valueOf(), '500');
-            assert.equal((await this.steak.totalSupply()).valueOf(), '5500');
+            assert.equal((await this.steak.balanceOf(dev)).valueOf(), '405');
+            assert.equal((await this.steak.totalSupply()).valueOf(), '5405');
         });
 
         it('should not distribute STEAK if no one deposit', async () => {
@@ -96,9 +96,9 @@ contract('MasterChef', ([alice, bob, carol, dev, minter]) => {
             assert.equal((await this.lp.balanceOf(bob)).valueOf(), '990');
             await time.advanceBlockTo('219');
             await this.chef.withdraw(0, '10', { from: bob }); // block 220
-            assert.equal((await this.steak.totalSupply()).valueOf(), '11000');
+            assert.equal((await this.steak.totalSupply()).valueOf(), '10810');
             assert.equal((await this.steak.balanceOf(bob)).valueOf(), '10000');
-            assert.equal((await this.steak.balanceOf(dev)).valueOf(), '1000');
+            assert.equal((await this.steak.balanceOf(dev)).valueOf(), '810');
             assert.equal((await this.lp.balanceOf(bob)).valueOf(), '1000');
         });
 
@@ -124,22 +124,22 @@ contract('MasterChef', ([alice, bob, carol, dev, minter]) => {
             //   MasterChef should have the remaining: 10000 - 5666 = 4334
             await time.advanceBlockTo('319')
             await this.chef.deposit(0, '10', { from: alice });
-            assert.equal((await this.steak.totalSupply()).valueOf(), '11000');
+            assert.equal((await this.steak.totalSupply()).valueOf(), '10810');
             assert.equal((await this.steak.balanceOf(alice)).valueOf(), '5666');
             assert.equal((await this.steak.balanceOf(bob)).valueOf(), '0');
             assert.equal((await this.steak.balanceOf(carol)).valueOf(), '0');
             assert.equal((await this.steak.balanceOf(this.chef.address)).valueOf(), '4334');
-            assert.equal((await this.steak.balanceOf(dev)).valueOf(), '1000');
+            assert.equal((await this.steak.balanceOf(dev)).valueOf(), '810');
             // Bob withdraws 5 LPs at block 330. At this point:
             //   Bob should have: 4*2/3*1000 + 2*2/6*1000 + 10*2/7*1000 = 6190
             await time.advanceBlockTo('329')
             await this.chef.withdraw(0, '5', { from: bob });
-            assert.equal((await this.steak.totalSupply()).valueOf(), '22000');
+            assert.equal((await this.steak.totalSupply()).valueOf(), '21620');
             assert.equal((await this.steak.balanceOf(alice)).valueOf(), '5666');
             assert.equal((await this.steak.balanceOf(bob)).valueOf(), '6190');
             assert.equal((await this.steak.balanceOf(carol)).valueOf(), '0');
             assert.equal((await this.steak.balanceOf(this.chef.address)).valueOf(), '8144');
-            assert.equal((await this.steak.balanceOf(dev)).valueOf(), '2000');
+            assert.equal((await this.steak.balanceOf(dev)).valueOf(), '1620');
             // Alice withdraws 20 LPs at block 340.
             // Bob withdraws 15 LPs at block 350.
             // Carol withdraws 30 LPs at block 360.
@@ -149,8 +149,8 @@ contract('MasterChef', ([alice, bob, carol, dev, minter]) => {
             await this.chef.withdraw(0, '15', { from: bob });
             await time.advanceBlockTo('359')
             await this.chef.withdraw(0, '30', { from: carol });
-            assert.equal((await this.steak.totalSupply()).valueOf(), '55000');
-            assert.equal((await this.steak.balanceOf(dev)).valueOf(), '5000');
+            assert.equal((await this.steak.totalSupply()).valueOf(), '54050');
+            assert.equal((await this.steak.balanceOf(dev)).valueOf(), '4050');
             // Alice should have: 5666 + 10*2/7*1000 + 10*2/6.5*1000 = 11600
             assert.equal((await this.steak.balanceOf(alice)).valueOf(), '11600');
             // Bob should have: 6190 + 10*1.5/6.5 * 1000 + 10*1.5/4.5*1000 = 11831
