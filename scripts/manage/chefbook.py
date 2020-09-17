@@ -10,7 +10,7 @@ chef = MasterChef.at(c.MASTER_CHEF)
 
 # pid:[lp_addr, alloc_point]
 uniswap_pools = {
-    0: ["0xDA73Ce7778C87131B6aD4210999De8d93B0a28e9", 100],  # ETH-HEDG
+    0: ["0xDA73Ce7778C87131B6aD4210999De8d93B0a28e9", 100], # ETH-HEDG
     1: ["0x0d4a11d5EEaaC28EC3F61d100daF4d40471f1852", 10],  # ETH-USDT
     2: ["0xB4e16d0168e52d35CaCD2c6185b44281Ec28C9Dc", 10],  # ETH-USDC
     3: ["0x3041CbD36888bECc7bbCBc0045E3B1f144466f5f", 10],  # USDC-USDT
@@ -53,5 +53,10 @@ def disable_migrator():
     assert factory.migrator() == c.NULL_ADDRESS, 'Invalid migrator'
     assert chef.migrator() == c.NULL_ADDRESS, 'Invalid migrator'
 
+def update_pool(pid: int):
+    """Call this to manually update revenue numbers.
+    Typically necessary in production."""
+    chef.updatePool(pid, {"from": deployer_acc})
+
 def main():
-    initialize_pools()
+    update_pool(1)
