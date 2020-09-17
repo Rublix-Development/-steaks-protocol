@@ -10,33 +10,54 @@ chef = MasterChef.at(c.MASTER_CHEF)
 
 # pid:[lp_addr, alloc_point]
 uniswap_pools = {
-    0: ["0xDA73Ce7778C87131B6aD4210999De8d93B0a28e9", 100], # ETH-HEDG
-    1: ["0x0d4a11d5EEaaC28EC3F61d100daF4d40471f1852", 10],  # ETH-USDT
-    2: ["0xB4e16d0168e52d35CaCD2c6185b44281Ec28C9Dc", 10],  # ETH-USDC
-    3: ["0x3041CbD36888bECc7bbCBc0045E3B1f144466f5f", 10],  # USDC-USDT
-    4: ["0xCE84867c3c02B05dc570d0135103d3fB9CC19433", 10],  # ETH-SUSHI
-    5: ["0x2fDbAdf3C4D5A8666Bc06645B8358ab803996E28", 10],  # ETH-YFI
+    0: ["0xDA73Ce7778C87131B6aD4210999De8d93B0a28e9", 20],  # HEDG-ETH
+    1: ["0xa2107FA5B38d9bbd2C461D6EDf11B11A50F6b974", 10],  # LINK-ETH
+    2: ["0x43AE24960e5534731Fc831386c07755A2dc33D47", 10],  # SNX-ETH
+    3: ["0xaB3F9bF1D81ddb224a2014e98B238638824bCf20", 10],  # LEND-ETH
+    4: ["0xCFfDdeD873554F362Ac02f8Fb1f02E5ada10516f", 10],  # COMP-ETH
+    5: ["0x2fDbAdf3C4D5A8666Bc06645B8358ab803996E28", 10],  # YFI-ETH
+}
+
+uniswap_pools_2 = {
+    6:  ["", 20],  # HEDG-STEAK
+    7:  ["", 10],  # LINK-STEAK
+    8:  ["", 10],  # SNX-STEAK
+    9:  ["", 10],  # LEND-STEAK
+    10: ["", 10],  # COMP-STEAK
+    11: ["", 10],  # YFI-STEAK
 }
 
 
-def initialize_pools():
+def prevent_double_add(lp_addr: str):
+    for i in range(50):
+        try:
+            pool = chef.poolInfo(i)
+        except ValueError:
+            break
+        assert pool[0] != lp_addr, 'Pool already exists'
+
+def initialize_pools(pools: dict):
     """Setup initial UniswapV2-LP farms"""
     assert chef.poolLength() == 0, 'Pools already initialized'
-    for lp_addr, alloc_point in list(uniswap_pools.values()):
+    for lp_addr, alloc_point in list(pools.values()):
+        prevent_double_add(lp_addr)
         chef.add(alloc_point, lp_addr, False, {"from": deployer_acc})
     time.sleep(30)
     chef.massUpdatePools({"from": deployer_acc})
 
 def add_pool(lp_addr: str, alloc_point: int):
     """Manually add a pool (ie. Uniswap ETH-STEAKS)"""
-    assert not any([x.lpToken() == lp_addr for x in chef.poolInfo()]), 'Already exists'
-    chef.add(alloc_point, lp_addr, False, {"from": deployer_acc})
-    time.sleep(30)
-    chef.massUpdatePools({"from": deployer_acc})
+    prevent_double_add(lp_addr)
+    chef.add(alloc_point, lp_addr, True, {"from": deployer_acc})
 
-def migrate_pools():
+def change_pool_alloc(pid: int, lp_addr: str, alloc_point: int):
+    """Change pool rewards allocation"""
+    assert chef.poolInfo(pid)[0] == 'lp_addr', 'Wrong pool id/addr'
+    chef.set(pid, alloc_point, True, {"from": deployer_acc})
+
+def migrate_pools(pools: dict):
     """Migrate liquidity from Uniswap to SteakSwap"""
-    for pid in list(uniswap_pools.keys()):
+    for pid in list(pools.keys()):
         chef.migrate(pid, {"from": deployer_acc})
 
 def set_migrator(migrator_contract_addr: str):
