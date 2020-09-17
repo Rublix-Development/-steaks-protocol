@@ -24,8 +24,7 @@ def main():
     current_block = web3.eth.blockNumber
     # start farming in 1 hour
     start_block = current_block + (1 * blocks_per_hour)
-    # TODO: validate if we should use toWei('1000 ether') here
-    steak_per_block = 1000
+    steak_per_block = web3.toWei(1000, 'ether')  # sushi is 100
     bonus_end_block = start_block + (24 * blocks_per_hour)
     migration_start_block = bonus_end_block + 1
 
