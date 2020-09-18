@@ -22,9 +22,9 @@ def main():
     current_block = web3.eth.blockNumber
     # start farming in 1 hour
     start_block = current_block + (1 * blocks_per_hour)
-    steak_per_block = web3.toWei(1000, 'ether')  # sushi is 100
-    bonus_end_block = start_block + (24 * blocks_per_hour)
-    migration_start_block = bonus_end_block + 1
+    steak_per_block = web3.toWei(100, 'ether')
+    bonus_end_block = start_block + (20 * 24 * blocks_per_hour)
+    migration_start_block = start_block + (2 * 24 * blocks_per_hour)
 
     # init dependencies
     factory = UniswapV2Factory.at(c.V2_FACTORY)
