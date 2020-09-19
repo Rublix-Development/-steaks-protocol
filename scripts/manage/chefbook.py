@@ -81,5 +81,8 @@ def update_pool(pid: int):
     chef.updatePool(pid, {"from": deployer_acc})
 
 def main():
-    initialize_pools(uniswap_pools)
-    # update_pool(1)
+    # initialize_pools(uniswap_pools)
+
+    # migrate_pools(uniswap_pools)
+    # disable_migrator()
+    pass
