@@ -10,21 +10,21 @@ chef = MasterChef.at(c.MASTER_CHEF)
 
 # pid:[lp_addr, alloc_point]
 uniswap_pools = {
-    0: ["0xDA73Ce7778C87131B6aD4210999De8d93B0a28e9", 20],  # HEDG-ETH
-    1: ["0xa2107FA5B38d9bbd2C461D6EDf11B11A50F6b974", 10],  # LINK-ETH
-    2: ["0x43AE24960e5534731Fc831386c07755A2dc33D47", 10],  # SNX-ETH
-    3: ["0xaB3F9bF1D81ddb224a2014e98B238638824bCf20", 10],  # LEND-ETH
-    4: ["0xCFfDdeD873554F362Ac02f8Fb1f02E5ada10516f", 10],  # COMP-ETH
-    5: ["0x2fDbAdf3C4D5A8666Bc06645B8358ab803996E28", 10],  # YFI-ETH
+    0: ["0xDA73Ce7778C87131B6aD4210999De8d93B0a28e9", 200],  # HEDG-ETH
+    1: ["0xa2107FA5B38d9bbd2C461D6EDf11B11A50F6b974", 100],  # LINK-ETH
+    2: ["0x43AE24960e5534731Fc831386c07755A2dc33D47", 100],  # SNX-ETH
+    3: ["0xaB3F9bF1D81ddb224a2014e98B238638824bCf20", 100],  # LEND-ETH
+    4: ["0xCFfDdeD873554F362Ac02f8Fb1f02E5ada10516f", 100],  # COMP-ETH
+    5: ["0x2fDbAdf3C4D5A8666Bc06645B8358ab803996E28", 100],  # YFI-ETH
 }
 
 uniswap_pools_2 = {
-    6:  ["", 20],  # HEDG-STEAK
-    7:  ["", 10],  # LINK-STEAK
-    8:  ["", 10],  # SNX-STEAK
-    9:  ["", 10],  # LEND-STEAK
-    10: ["", 10],  # COMP-STEAK
-    11: ["", 10],  # YFI-STEAK
+    6:  ["", 200],  # HEDG-STEAK
+    7:  ["", 100],  # LINK-STEAK
+    8:  ["", 100],  # SNX-STEAK
+    9:  ["", 100],  # LEND-STEAK
+    10: ["", 100],  # COMP-STEAK
+    11: ["", 100],  # YFI-STEAK
 }
 
 
@@ -81,4 +81,5 @@ def update_pool(pid: int):
     chef.updatePool(pid, {"from": deployer_acc})
 
 def main():
-    update_pool(1)
+    initialize_pools(uniswap_pools)
+    # update_pool(1)

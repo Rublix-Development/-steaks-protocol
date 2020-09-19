@@ -59,17 +59,17 @@ def main():
         {"from": deployer_acc})
 
     # link the migrator contract
-    factory.setMigrator(migrator.address)
+    factory.setMigrator(migrator.address, {"from": deployer_acc})
     assert factory.migrator() == migrator.address, 'Invalid migrator'
-    master_chef.setMigrator(migrator.address)
+    master_chef.setMigrator(migrator.address, {"from": deployer_acc})
     assert master_chef.migrator() == migrator.address, 'Invalid migrator'
 
     # transfer STEAK ownership to chef
-    steak.transferOwnership(chef.address, {"from": deployer_acc})
-    assert steak.owner() == chef.address, 'Chef needs to own STEAK'
+    steak.transferOwnership(master_chef.address, {"from": deployer_acc})
+    assert steak.owner() == master_chef.address, 'Chef needs to own STEAK'
 
     print('Set in config.py:')
-    print(f'    STEAK_BAR = "{steak_bar.address}"')
-    print(f'    STEAK_MAKER = "{steak_maker.address}"')
-    print(f'    MASTER_CHEF = "{master_chef.address}"')
-    print(f'    MIGRATOR = "{migrator.address}"')
+    print(f'    STEAK_BAR    = "{steak_bar.address}"')
+    print(f'    STEAK_MAKER  = "{steak_maker.address}"')
+    print(f'    MASTER_CHEF  = "{master_chef.address}"')
+    print(f'    MIGRATOR     = "{migrator.address}"')

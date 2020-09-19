@@ -17,6 +17,6 @@ def main():
 
     print('Set in config.py:')
     print(f'    V2_PAIR_HASH = "{factory.pairCodeHash()}"')
-    print(f'    V2_ROUTER    = "{router.address}"')
     print(f'    V2_FACTORY   = "{factory.address}"')
+    print(f'    V2_ROUTER    = "{router.address}"')
 
