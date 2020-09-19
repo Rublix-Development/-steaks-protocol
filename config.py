@@ -2,6 +2,7 @@ class Config:
     NULL_ADDRESS = "0x0000000000000000000000000000000000000000"
     DEV_ADDRESS = "0x5CCf79Ea2e102249C1949835D50FC3da354A67B1"
     DEPLOYER = "deployer"
+    V2_PAIR_HASH = "4c7f780d078e674dd7ebc855ce44e8b9282c56deca56477834f8476723fb0aef"
 
 class MainnetConfig(Config):
     # 3rd party
@@ -12,7 +13,6 @@ class MainnetConfig(Config):
     TIMELOCK     = ""
     GOVERNOR     = ""
     V2_FACTORY   = ""
-    V2_PAIR_HASH = ""
     V2_ROUTER    = ""
     STEAK_BAR    = ""
     STEAK_MAKER  = ""
