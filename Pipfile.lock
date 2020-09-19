@@ -101,11 +101,11 @@
         },
         "eth-brownie": {
             "hashes": [
-                "sha256:0c72ec6b8d80bf73374f8756ff9ad7838ce6a817ed85c837435b4890128577b6",
-                "sha256:0c8507b7b542167da81621fe395d9ea759215066457aee580e41b93232cdf294"
+                "sha256:30eaa825c9d3679123aa4bd1332d4e3301732fa548e4ff0a429623867252cf35",
+                "sha256:df7ef9b7d65303127268f7ef5552fb1866ff4e70ab3247469f45367a50edeca7"
             ],
             "index": "pypi",
-            "version": "==1.11.3"
+            "version": "==1.11.5"
         },
         "eth-event": {
             "hashes": [
