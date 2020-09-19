@@ -74,16 +74,14 @@ Set the `TIMELOCK`  and `GOVERNOR` addresses  in `config.py`.
 
 ### Deploy the SteakSwap exchange
 
-Run the `deploy_factory()` first:
-```
-pipenv run brownie run deploy/2_steakswap.py --network mainnet
-```
-
-Set the `V2_FACTORY`  and `V2_PAIR_HASH` addresses  in `config.py`.
+First, get the `V2_PAIR_HASH` from calling Factory.pairCodeHash() in test env.
 
 **Make sure to update the pair hash in `UniswapV2Library.sol:24`.**
 
-Then run `deploy_router()` and set the `V2_ROUTER` in `config.py`.
+```
+pipenv run brownie run deploy/2_steakswap.py --network mainnet
+```
+Set the `V2_FACTORY` and `V2_ROUTER` addresses  in `config.py`.
 
 
 ### Deploy the MasterChef
@@ -102,5 +100,12 @@ For each deployed contract, a `truffle-flattener` must run, ie:
 truffle-flattener contracts/SteakToken.sol > etherscan.sol
 ```
 The code of the flattener output needs to be modified to:
- - match solc version used by Brownie on all contracts
  - remove duplicate SPDX-License identifiers
+
+To generate constructor ABI-encoded parameters, get the abi:
+```
+cat build/contracts/UniswapV2Factory.json | jq .abi
+```
+
+Then use this tool to encode it:
+https://abi.hashex.org/
