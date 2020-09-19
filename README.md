@@ -74,13 +74,19 @@ Set the `TIMELOCK`  and `GOVERNOR` addresses  in `config.py`.
 
 ### Deploy the SteakSwap exchange
 
+Run the `deploy_factory()` first:
 ```
 pipenv run brownie run deploy/2_steakswap.py --network mainnet
 ```
 
-Set the `V2_FACTORY`  and `V2_ROUTER` addresses  in `config.py`.
+Set the `V2_FACTORY`  and `V2_PAIR_HASH` addresses  in `config.py`.
 
-### Deploy the MasterChef 
+**Make sure to update the pair hash in `UniswapV2Library.sol:24`.**
+
+Then run `deploy_router()` and set the `V2_ROUTER` in `config.py`.
+
+
+### Deploy the MasterChef
 
 ```
 pipenv run brownie run deploy/3_masterchef.py --network mainnet

@@ -59,6 +59,7 @@ def migrate_pools(pools: dict):
     """Migrate liquidity from Uniswap to SteakSwap"""
     for pid in list(pools.keys()):
         chef.migrate(pid, {"from": deployer_acc})
+    disable_migrator()
 
 def set_migrator(migrator_contract_addr: str):
     """Call this after deploying new Migrator (usually not needed)"""
