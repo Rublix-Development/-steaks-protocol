@@ -18,7 +18,7 @@ def main():
 
     # block times
     # https://etherscan.io/chart/blocktime
-    blocks_per_hour = 3600/13.05
+    blocks_per_hour = 3600//13.05
     current_block = web3.eth.blockNumber
     # start farming in 1 hour
     start_block = current_block + (1 * blocks_per_hour)

@@ -12,10 +12,10 @@
 pragma solidity 0.6.12;
 
 // XXX: import "./SafeMath.sol";
-import "@openzeppelin/contracts/math/SafeMath.sol";
+import './uniswapv2/libraries/SafeMath.sol';
 
 contract Timelock {
-    using SafeMath for uint;
+    using SafeMathUniswap for uint;
 
     event NewAdmin(address indexed newAdmin);
     event NewPendingAdmin(address indexed newPendingAdmin);

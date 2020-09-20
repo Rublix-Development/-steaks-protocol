@@ -18,5 +18,5 @@ def main():
     gov = GovernorAlpha.deploy(timelock.address, c.STEAK_TOKEN, guardian, {"from": deployer_acc})
 
     print('Set in config.py:')
-    print(f'    TIMELOCK = "{timelock.address}"')
-    print(f'    GOVERNOR = "{gov.address}"')
+    print(f'    TIMELOCK     = "{timelock.address}"')
+    print(f'    GOVERNOR     = "{gov.address}"')
