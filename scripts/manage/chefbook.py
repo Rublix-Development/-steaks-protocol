@@ -20,12 +20,16 @@ uniswap_pools_1 = {
 }
 
 uniswap_pools_2 = {
-    7:  ["", 200],  # HEDG-STEAK
-    8:  ["", 100],  # LINK-STEAK
-    9:  ["", 100],  # SNX-STEAK
-    10: ["", 100],  # LEND-STEAK
-    11: ["", 100],  # COMP-STEAK
-    12: ["", 100],  # YFI-STEAK
+    7:  ["0xBb2b8038a1640196FbE3e38816F3e67Cba72D940", 50],  # WBTC-ETH
+}
+
+uniswap_pools_3 = {
+    8:  ["", 200],  # HEDG-STEAK
+    9:  ["", 100],  # LINK-STEAK
+    10: ["", 100],  # SNX-STEAK
+    11: ["", 100],  # LEND-STEAK
+    12: ["", 100],  # COMP-STEAK
+    13: ["", 100],  # YFI-STEAK
 }
 
 
@@ -82,6 +86,7 @@ def update_pool(pid: int):
 
 def main():
     # initialize_pools(uniswap_pools_1) # done
+    # initialize_pools(uniswap_pools_2) # done
 
     # migrate_pools(uniswap_pools)
     # disable_migrator()
