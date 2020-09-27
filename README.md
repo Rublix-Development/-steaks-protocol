@@ -4,15 +4,15 @@
 
 ## Mainnet Contracts
 
-- Steaks Token - 
-- SteakBar - 
-- MasterChef - 
-- SteakMaker - 
-- Migrator - 
-- Governance - 
-- SteakswapV2Factory - 
-- SteakswapV2Router02 -
-
+- Steaks Token - https://etherscan.io/address/0xeED9e4F2450035D6426276a8aA2084966EE3b1bb
+- SteakBar - https://etherscan.io/address/0x6810536A08D00d51c2C48e0a06537A26828718ba
+- MasterChef - https://etherscan.io/address/0xd58211d19f1A91a9a379D7BE4E20B4e4C3d42c17
+- SteakMaker - https://etherscan.io/address/0xeaD300c2089809a4EdA0b7728B728829867dF960
+- Migrator - https://etherscan.io/address/0x2E6B93f113df8e46547939e0C62677DDfeeb35Fe
+- Timelock - https://etherscan.io/address/0x8B8cFc71425af029b0C4E00140863105b4f5B136
+- Governance - https://etherscan.io/address/0x9A3415Fb9c2Bbf8d0D57dAFf900A22068E75a65D
+- SteakswapV2Factory - https://etherscan.io/address/0x2235CFdC3A76f964D6a2292e3b2955373F2aa654
+- SteakswapV2Router02 - https://etherscan.io/address/0x4de210C42F7f32033eE6Dd01dB0C5d57fAAfF0d3
 
 
 ### STEAKS Token Flow

@@ -67,7 +67,7 @@ contract MasterChef is Ownable {
     // STEAK tokens created per block.
     uint256 public steakPerBlock;
     // Bonus muliplier for early steak makers.
-    uint256 public constant BONUS_MULTIPLIER = 5;
+    uint256 public constant BONUS_MULTIPLIER = 2;
     // The migrator contract. It has a lot of power. Can only be set through governance (owner).
     IMigratorChef public migrator;
 

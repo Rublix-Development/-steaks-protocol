@@ -10,4 +10,4 @@ def main():
     steak = SteakToken.deploy({"from": deployer_acc})
 
     print('Set in config.py:')
-    print(f'    STEAK_TOKEN = "{steak.address}"')
+    print(f'    STEAK_TOKEN  = "{steak.address}"')

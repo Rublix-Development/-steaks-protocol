@@ -16,15 +16,16 @@ def main():
 
     deployer_acc = accounts.load(c.DEPLOYER)
 
+    steak_per_block = web3.toWei(250, 'ether')
     # block times
     # https://etherscan.io/chart/blocktime
-    blocks_per_hour = 3600//13.05
+    blocks_per_hour = int(3600//13.05)
     current_block = web3.eth.blockNumber
-    # start farming in 1 hour
-    start_block = current_block + (1 * blocks_per_hour)
-    steak_per_block = web3.toWei(100, 'ether')
+    start_block = current_block + (31 * blocks_per_hour)
     bonus_end_block = start_block + (20 * 24 * blocks_per_hour)
-    migration_start_block = start_block + (2 * 24 * blocks_per_hour)
+    migration_start_block = start_block + (4 * 24 * blocks_per_hour)
+    print('Chef params:', steak_per_block, start_block, bonus_end_block)
+    print('Migrator params:', migration_start_block)
 
     # init dependencies
     factory = UniswapV2Factory.at(c.V2_FACTORY)
