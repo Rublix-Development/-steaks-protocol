@@ -13,7 +13,7 @@
 - Governance - https://etherscan.io/address/0x9A3415Fb9c2Bbf8d0D57dAFf900A22068E75a65D
 - SteakswapV2Factory - https://etherscan.io/address/0x2235CFdC3A76f964D6a2292e3b2955373F2aa654
 - SteakswapV2Router02 - https://etherscan.io/address/0x4de210C42F7f32033eE6Dd01dB0C5d57fAAfF0d3
-
+- STEAK-ETH Uniswap Pool - https://uniswap.info/pair/0x99b46782E350A37D2850fF3713bF29Ab3902CD31
 
 ### STEAKS Token Flow
 
