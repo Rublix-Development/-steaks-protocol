@@ -18,18 +18,19 @@ uniswap_pools_1 = {
     5: ["0xCFfDdeD873554F362Ac02f8Fb1f02E5ada10516f", 200],  # COMP-ETH
     6: ["0x2fDbAdf3C4D5A8666Bc06645B8358ab803996E28", 200],  # YFI-ETH
 }
-
 uniswap_pools_2 = {
-    7:  ["0xBb2b8038a1640196FbE3e38816F3e67Cba72D940", 50],  # WBTC-ETH
+    7: ["0xBb2b8038a1640196FbE3e38816F3e67Cba72D940", 50],   # WBTC-ETH
 }
-
 uniswap_pools_3 = {
-    8:  ["", 200],  # HEDG-STEAK
-    9:  ["", 100],  # LINK-STEAK
-    10: ["", 100],  # SNX-STEAK
-    11: ["", 100],  # LEND-STEAK
-    12: ["", 100],  # COMP-STEAK
-    13: ["", 100],  # YFI-STEAK
+    8: ["0x99b46782E350A37D2850fF3713bF29Ab3902CD31", 800],  # STEAK-ETH
+}
+uniswap_pools_4 = {
+    9:  ["", 200],  # HEDG-STEAK
+    10: ["", 100], # LINK-STEAK
+    11: ["", 100],  # SNX-STEAK
+    12: ["", 100],  # LEND-STEAK
+    13: ["", 100],  # COMP-STEAK
+    14: ["", 100],  # YFI-STEAK
 }
 
 
@@ -45,7 +46,8 @@ def initialize_pools(pools: dict):
     """Setup initial UniswapV2-LP farms"""
     for lp_addr, alloc_point in list(pools.values()):
         prevent_double_add(lp_addr)
-        chef.add(alloc_point, lp_addr, False, {"from": deployer_acc})
+        chef.add(alloc_point, lp_addr, False, {"from": deployer_acc,
+                                               "gas_price": int(web3.eth.gasPrice*1.3)})
     time.sleep(30)
     chef.massUpdatePools({"from": deployer_acc})
 
@@ -87,6 +89,7 @@ def update_pool(pid: int):
 def main():
     # initialize_pools(uniswap_pools_1) # done
     # initialize_pools(uniswap_pools_2) # done
+    # initialize_pools(uniswap_pools_3) # done
 
     # migrate_pools(uniswap_pools)
     # disable_migrator()
