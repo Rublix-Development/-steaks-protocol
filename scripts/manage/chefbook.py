@@ -28,18 +28,22 @@ uniswap_pools_4 = {
     9:  ["0x48e130B740Af7D2bAc0Ee7E0dF95dcdC3F6eA162", 100],  # USDC-STEAK
     10: ["0x82e51A70E199F5a25E56Ea55f4229DcdDB822AFD", 100],  # WBTC-STEAK
 }
+uniswap_pools_5 = {
+    11: ["0x43AE24960e5534731Fc831386c07755A2dc33D47",   5],  # SNX-ETH
+}
 pools_update_to = {
     0:  ["0xDA73Ce7778C87131B6aD4210999De8d93B0a28e9",  100],  # HEDG-ETH
-    1:  ["0xB4e16d0168e52d35CaCD2c6185b44281Ec28C9Dc",    0],  # USDC-ETH
+    1:  ["0xB4e16d0168e52d35CaCD2c6185b44281Ec28C9Dc",    2],  # USDC-ETH
     2:  ["0x004375Dff511095CC5A197A54140a24eFEF3A416",    0],  # USDC-WBTC
-    3:  ["0xa2107FA5B38d9bbd2C461D6EDf11B11A50F6b974",    0],  # LINK-ETH
-    4:  ["0xd3d2E2692501A5c9Ca623199D38826e513033a17",    0],  # UNI-ETH
-    5:  ["0xCFfDdeD873554F362Ac02f8Fb1f02E5ada10516f",    0],  # COMP-ETH
-    6:  ["0x2fDbAdf3C4D5A8666Bc06645B8358ab803996E28",    0],  # YFI-ETH
-    7:  ["0xBb2b8038a1640196FbE3e38816F3e67Cba72D940",    0],  # WBTC-ETH
+    3:  ["0xa2107FA5B38d9bbd2C461D6EDf11B11A50F6b974",    5],  # LINK-ETH
+    4:  ["0xd3d2E2692501A5c9Ca623199D38826e513033a17",    5],  # UNI-ETH
+    5:  ["0xCFfDdeD873554F362Ac02f8Fb1f02E5ada10516f",    5],  # COMP-ETH
+    6:  ["0x2fDbAdf3C4D5A8666Bc06645B8358ab803996E28",    5],  # YFI-ETH
+    7:  ["0xBb2b8038a1640196FbE3e38816F3e67Cba72D940",    2],  # WBTC-ETH
     8:  ["0x99b46782E350A37D2850fF3713bF29Ab3902CD31",  100],  # STEAK-ETH
     9:  ["0x48e130B740Af7D2bAc0Ee7E0dF95dcdC3F6eA162",  100],  # USDC-STEAK
     10: ["0x82e51A70E199F5a25E56Ea55f4229DcdDB822AFD",  100],  # WBTC-STEAK
+    11: ["0x43AE24960e5534731Fc831386c07755A2dc33D47",    5],  # SNX-ETH
 }
 
 
@@ -110,6 +114,7 @@ def main():
     # initialize_pools(uniswap_pools_2) # done
     # initialize_pools(uniswap_pools_3) # done
     # initialize_pools(uniswap_pools_4) # done
+    # initialize_pools(uniswap_pools_5) # done
     update_pools(pools_update_to)
 
     # migrate_pools(uniswap_pools)
