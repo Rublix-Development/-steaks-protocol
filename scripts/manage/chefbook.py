@@ -29,7 +29,10 @@ uniswap_pools_4 = {
     10: ["0x82e51A70E199F5a25E56Ea55f4229DcdDB822AFD", 100],  # WBTC-STEAK
 }
 uniswap_pools_5 = {
-    11: ["0x43AE24960e5534731Fc831386c07755A2dc33D47",   5],  # SNX-ETH
+    11: ["0x43AE24960e5534731Fc831386c07755A2dc33D47", 5],  # SNX-ETH
+}
+uniswap_pools_6 = {
+    12: ["0xFc2890ffB3069A1A9d3F7B11C7775a1A1ee721c0", 0],  # USDC-HEDG
 }
 pools_update_to = {
     0:  ["0xDA73Ce7778C87131B6aD4210999De8d93B0a28e9",  100],  # HEDG-ETH
@@ -44,6 +47,7 @@ pools_update_to = {
     9:  ["0x48e130B740Af7D2bAc0Ee7E0dF95dcdC3F6eA162",  100],  # USDC-STEAK
     10: ["0x82e51A70E199F5a25E56Ea55f4229DcdDB822AFD",  100],  # WBTC-STEAK
     11: ["0x43AE24960e5534731Fc831386c07755A2dc33D47",    5],  # SNX-ETH
+    12: ["0xFc2890ffB3069A1A9d3F7B11C7775a1A1ee721c0",    0],  # USDC-HEDG
 }
 
 
@@ -115,6 +119,7 @@ def main():
     # initialize_pools(uniswap_pools_3) # done
     # initialize_pools(uniswap_pools_4) # done
     # initialize_pools(uniswap_pools_5) # done
+    # initialize_pools(uniswap_pools_6) # done
     update_pools(pools_update_to)
 
     # migrate_pools(uniswap_pools)
