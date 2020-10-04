@@ -191,17 +191,29 @@ def main():
     # update_pools(pools_update_to)     # done
     # enable_timelock()                 # done
 
-    # generated with timelock_eta.py
-    eta = 1602008693
-    action = 'queue' # queue, execute or cancel
-    # initialize_pools_timelock(uniswap_pools_8, action, eta)
-    update_pools_timelock(pools_update_to, action, eta)
+    # # generated with timelock_eta.py
+    # eta = 1602008693
+    # action = 'queue' # queue, execute or cancel
+    # # initialize_pools_timelock(uniswap_pools_8, action, eta)
+    # update_pools_timelock(pools_update_to, action, eta)
+    #
+    # if action == 'execute':
+    #     chef.massUpdatePools(
+    #         {"from": deployer_acc,
+    #          "gas_price": int(web3.eth.gasPrice*1.3),
+    #          "gas_limit": 2_000_000})
 
-    if action == 'execute':
-        chef.massUpdatePools(
-            {"from": deployer_acc,
-             "gas_price": int(web3.eth.gasPrice*1.3),
-             "gas_limit": 2_000_000})
+
+    # disable timelock
+    eta = 1602035198
+    action = 'queue' # queue, execute or cancel
+    exec_timelock(
+        action,
+        chef.address,
+        "transferOwnership(address)",
+        encode_abi(['address'], [deployer_acc.address]),
+        eta,
+    )
 
     # migrate_pools(uniswap_pools)
     # disable_migrator()
