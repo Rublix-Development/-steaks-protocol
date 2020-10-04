@@ -41,9 +41,9 @@ uniswap_pools_7 = {
     13: ["0xF5cAFa398bEB12dCCFBA917c19922C1EA2d6c056", 0],  # HEDG-STEAK
 }
 uniswap_pools_8 = {
-    14: ["0xdc98556Ce24f007A5eF6dC1CE96322d65832A819", 0],  # PICKLE-ETH
-    15: ["0xCE84867c3c02B05dc570d0135103d3fB9CC19433", 0],  # SUSHI-ETH
-    16: ["0xAE461cA67B15dc8dc81CE7615e0320dA1A9aB8D5", 0],  # DAI-USDC
+    14: ["0xdc98556Ce24f007A5eF6dC1CE96322d65832A819", 20],  # PICKLE-ETH
+    15: ["0xCE84867c3c02B05dc570d0135103d3fB9CC19433", 25],  # SUSHI-ETH
+    16: ["0xAE461cA67B15dc8dc81CE7615e0320dA1A9aB8D5", 10],  # DAI-USDC
 }
 pools_update_to = {
     0:  ["0xDA73Ce7778C87131B6aD4210999De8d93B0a28e9",   60],  # HEDG-ETH
@@ -141,7 +141,7 @@ def initialize_pools_timelock(pools: dict, action: str, eta: int):
             action,
             chef.address,
             "add(uint256,address,bool)",
-            encode_abi(['uint256', 'address', 'bool'], [alloc_point, lp_addr, True]),
+            encode_abi(['uint256', 'address', 'bool'], [alloc_point, lp_addr, False]),
             eta,
         )
 
@@ -154,7 +154,7 @@ def update_pools_timelock(pools: dict, action: str, eta: int):
             action,
             chef.address,
             "set(uint256,unit256,bool)",
-            encode_abi(['uint256', 'uint256', 'bool'], [pid, alloc_point, True]),
+            encode_abi(['uint256', 'uint256', 'bool'], [pid, alloc_point, False]),
             eta,
         )
 
@@ -173,7 +173,9 @@ def exec_timelock(action: str, address: str, signature: str, abi: bytes, eta: in
             signature,
             abi,
             eta,
-            {'from': deployer_acc, "gas_price": int(web3.eth.gasPrice*1.3)},
+            {"from": deployer_acc,
+             "gas_price": int(web3.eth.gasPrice*1.3),
+             "gas_limit": 2_000_000},
         )
 
 
@@ -190,10 +192,16 @@ def main():
     # enable_timelock()                 # done
 
     # generated with timelock_eta.py
-    eta = 1601828870
+    eta = 1602008693
     action = 'queue' # queue, execute or cancel
-    initialize_pools_timelock(uniswap_pools_8, action, eta)
+    # initialize_pools_timelock(uniswap_pools_8, action, eta)
     update_pools_timelock(pools_update_to, action, eta)
+
+    if action == 'execute':
+        chef.massUpdatePools(
+            {"from": deployer_acc,
+             "gas_price": int(web3.eth.gasPrice*1.3),
+             "gas_limit": 2_000_000})
 
     # migrate_pools(uniswap_pools)
     # disable_migrator()
